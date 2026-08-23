@@ -129,6 +129,8 @@ FELTÉTELEZÉSEK
 VÁRHATÓ ELŐNYÖK
 FÜGGŐSÉGEK
 FAILURE MODES
+RENDSZERSZINTŰ HATÁSOK / INTERAKCIÓK
+KOMPLEXITÁS / MŰKÖDTETHETŐSÉG
 EXIT / REPLACEABILITY
 TESZTELHETŐSÉG
 BIZONYÍTÉK
@@ -151,10 +153,11 @@ Például:
 
 ```text
 CÉLZOTT KÖVETELMÉNYEK:
-    A05-...
-    A06-...
-    A09-...
+    <stabil public requirement-ID>
+    <stabil public requirement-ID>
 ```
+
+Csak ténylegesen publikált követelmény azonosítója használható hivatkozási pontként. Tervezett domain-, taxonómia- vagy belső munkasorszám ne váljon e README használatával implicit nyilvános stabil ID-vé.
 
 Ez lehetővé teszi, hogy ugyanarra a requirementre több candidate is összehasonlítható legyen.
 
@@ -220,7 +223,7 @@ Kritikus állami funkciót támogató candidate-nél különösen fontos:
 ```text
 adoptability
 !=
-exitability
+exittability
 ```
 
 Vizsgálandó lehet:
@@ -247,14 +250,74 @@ Kérdések:
 - milyen támadási felületet nyit;
 - milyen új governance-kockázatot hoz létre;
 - milyen hibát nehéz észlelni;
+- milyen többkomponensű vagy common-mode failure alakulhat ki;
+- előállhat-e veszélyes rendszerállapot úgy, hogy az egyes komponensek önmagukban a specifikáció szerint működnek;
+- milyen latent degradation maradhat sokáig észrevétlen;
+- milyen hiányzó, késő vagy félrevezető feedback akadályozhatja a hiba felismerését;
+- támaszkodik-e a működés ismétlődő workaroundra, kézi kompenzációra vagy rendkívüli emberi beavatkozásra;
+- milyen új failure pathway-t hozhat létre maga a candidate bevezetése vagy későbbi módosítása;
 - hogyan áll helyre.
 
 ```text
 feature list
 != resilience analysis
+
+component correctness
++
+formal compliance
+!=
+system-level safe operation
+
+absence of overt incident
+!=
+absence of dangerous failure trajectories
 ```
 
-## 10. Tesztelhetőség
+## 10. Rendszerszintű biztonság és interakciók
+
+Kritikus állami funkciót támogató candidate-et nem elég komponensenként értékelni.
+
+Vizsgálandó, hogy a candidate:
+
+- milyen rendszerhatárt feltételez;
+- milyen más komponensekkel, intézményekkel és emberi szereplőkkel lép kölcsönhatásba;
+- milyen visszacsatolásból állapítható meg, hogy a kívánt működési állapot fennáll;
+- milyen állapotot vagy átmenetet kell megelőzni, észlelni vagy korrigálni;
+- hogyan viselkedik latent degradation mellett;
+- hogyan teszi láthatóvá a near miss, repeated workaround, manual recovery vagy más weak signal jelenségeket;
+- hogyan változtatja a common-mode failure és blast-radius kockázatát;
+- hogyan változtatja meg a már meglévő recovery- és fallback-logikát.
+
+Egy system-safety módszer — például STAMP/STPA vagy más megfelelő elemzési keret — használható candidate-értékeléshez, de a projekt nem ír elő egyetlen ilyen módszert kötelező megoldásként.
+
+```text
+useful analysis method
+!=
+mandatory implementation architecture
+
+engineering control / feedback
+!=
+constitutional control / public authority
+
+engineering safety constraint
+!=
+legal or normative authority for a constraint
+```
+
+Ha a jelenlegi működés emberi szakértelemre vagy adaptív beavatkozásra támaszkodik, ezt dependencyként és működési képességként láthatóvá kell tenni.
+
+```text
+automation
+!=
+proof that previously human adaptive safety functions
+have become unnecessary
+
+recognizing human adaptive capacity
+!=
+requiring permanent human-in-the-loop architecture
+```
+
+## 11. Tesztelhetőség
 
 Előnyben részesítendő az a candidate, amelynek releváns állításai:
 
@@ -273,7 +336,7 @@ vendor claim
 
 A candidate-ről gyűjtött bizonyítékok helye szükség szerint a `bizonyitekok/` könyvtár lehet.
 
-## 11. Bizonyíték
+## 12. Bizonyíték
 
 Candidate-ről állított konkrét tulajdonságot lehetőség szerint bizonyíték támasszon alá.
 
@@ -300,7 +363,7 @@ BIZONYÍTÉK:
     miből állapítható meg, hogy az állítás ténylegesen igaz az értékelt változatra
 ```
 
-## 12. Candidate maturity
+## 13. Candidate maturity
 
 Az érettséget nem célszerű egyetlen marketingkategóriával leírni.
 
@@ -327,7 +390,7 @@ mature
 
 A kritikus állami használhatóságot mindig a konkrét requirement és kockázati környezet alapján kell értékelni.
 
-## 13. Leapfrog és komponensújdonság
+## 14. Leapfrog és komponensújdonság
 
 Egy radikálisan jobb rendszerarchitektúra nem követel radikálisan új alkatrészeket.
 
@@ -355,7 +418,56 @@ A kérdés:
 - mennyire helyettesíthető;
 - milyen bizonyíték áll rendelkezésre.
 
-## 14. Open source
+## 15. Komplexitás és működtethetőség költsége
+
+Az implementation candidate által bevezetett új komplexitás önálló költség és kockázati koordináta.
+
+```text
+additional complexity
+must earn its place
+```
+
+Nem az a cél, hogy minden új vagy összetett megoldást kizárjunk. A kérdés az, hogy az új komplexitás milyen requirementet szolgál, és teljes életciklusa alatt kezelhető-e.
+
+Minimum vizsgálati kérdések:
+
+- mely requirement indokolja az új komplexitást;
+- milyen új expertise szükséges hozzá;
+- hogyan dokumentálható;
+- hogyan adható át másik üzemeltetőnek;
+- milyen új couplingot, failure surface-t vagy közös hibadomént hoz létre;
+- milyen observabilityt igényel;
+- milyen új monitoring- és incident-response terhet okoz;
+- hogyan változtatja a recovery és fallback terhét;
+- milyen konfigurációs vagy verziófüggőséget hoz létre;
+- hogyan távolítható el vagy helyettesíthető;
+- egyszerűbb candidate ugyanazt a requirementet megfelelően teljesítené-e.
+
+```text
+system-level leapfrog
+!=
+component novelty
+
+novel technology
+!=
+rejected by default
+
+boring technology
+!=
+safe by default
+```
+
+A komplexitás értékelése ne szereplők feltételezett motivációjáról szóljon.
+
+```text
+complexity critique
+!=
+claim about developer / vendor motive
+```
+
+A candidate-et a requirement, a működtethetőség, a failure modes, a teszt és a bizonyíték alapján kell értékelni.
+
+## 16. Open source
 
 ```text
 open source
@@ -377,7 +489,7 @@ szempontjából.
 
 Ezeket külön kell vizsgálni.
 
-## 15. Hazai megoldás és szuverenitás
+## 17. Hazai megoldás és szuverenitás
 
 ```text
 hazai vendor
@@ -398,7 +510,7 @@ A releváns kérdések:
 - migration;
 - hosszú távú evolúció.
 
-## 16. Centralizált és elosztott megoldások
+## 18. Centralizált és elosztott megoldások
 
 A könyvtár nem privilegizál automatikusan sem centralizált, sem elosztott architektúrát.
 
@@ -422,7 +534,7 @@ Vizsgálandó:
 - observability;
 - operational complexity.
 
-## 17. AI és automatizált megoldások
+## 19. AI és automatizált megoldások
 
 AI-alapú candidate esetén külön kezelendő:
 
@@ -444,7 +556,7 @@ Vizsgálandó lehet:
 - hogyan működik AI nélkül;
 - milyen támadó AI-képességet feltételez a security model.
 
-## 18. Adat- és profilalapú candidate-ek
+## 20. Adat- és profilalapú candidate-ek
 
 Személyre szabás vagy life-situation alapú szolgáltatás nem igazolja automatikusan a teljes profil központosítását.
 
@@ -464,7 +576,7 @@ Vizsgálandó:
 - milyen linkage szükséges;
 - milyen visszaélési kockázat keletkezik.
 
-## 19. Candidate és jogszerű közhatalom
+## 21. Candidate és jogszerű közhatalom
 
 Egy technológia egyszerűsítheti a szolgáltatást, de nem homályosíthatja el:
 
@@ -477,9 +589,17 @@ Egy technológia egyszerűsítheti a szolgáltatást, de nem homályosíthatja e
 ```text
 seamless implementation
 != blurred lawful authority
+
+technical control mechanism
+!= public authority
+
+engineering safety constraint
+!= legal / constitutional constraint
 ```
 
-## 20. Candidate és state-function completeness
+Ha a candidate saját `control`, `controller`, `constraint`, `authority` vagy hasonló fogalmat használ, az értékelésben egyértelművé kell tenni, hogy technikai, szervezeti vagy közhatalmi értelemről van-e szó.
+
+## 22. Candidate és state-function completeness
 
 Egy candidate attól még nem megfelelő, hogy jól old meg egy izolált technikai problémát.
 
@@ -500,9 +620,17 @@ A state-function completeness alapján szükség szerint vizsgálni kell:
 
 Nem minden candidate-re releváns minden dimenzió.
 
+Ahol releváns, a candidate-et külön is vizsgálni kell abból a szempontból, hogy:
+
+- nominálisan normál működés mellett kialakulhat-e latent degradation;
+- több kisebb hiba vagy félreértett interakció együtt létrehozhat-e súlyos failure-t;
+- megfelelő feedbackből felismerhető-e a veszélyes állapot;
+- a near miss, repeated workaround és manual recovery láthatóvá válik-e;
+- a candidate bevezetése vagy frissítése milyen új failure pathway-t hozhat létre.
+
 A `N/A` azonban indoklandó legyen, ne automatikus.
 
-## 21. Összehasonlítás
+## 23. Összehasonlítás
 
 Ha több candidate ugyanazt a követelményt célozza, célszerű azonos koordináták szerint összehasonlítani őket.
 
@@ -516,10 +644,13 @@ CANDIDATE C
 
 security
 resilience
+system-level interactions
+latent degradation / observability
 dependency
 exit
 recovery
-operational complexity
+complexity / operability cost
+adaptive operational dependencies
 verification
 maturity
 cost assumptions
@@ -535,7 +666,7 @@ comparison
 
 A trade-off-ok láthatósága gyakran fontosabb, mint egy összesített score.
 
-## 22. Érdekeltségi nyilatkozat
+## 24. Érdekeltségi nyilatkozat
 
 Ha egy candidate-et olyan személy vagy szervezet javasol, aki:
 
@@ -560,7 +691,7 @@ governance problem
 
 A disclosure célja nem a candidate kizárása, hanem az értékelési helyzet átláthatósága.
 
-## 23. Résztvevői megoldások
+## 25. Résztvevői megoldások
 
 A projekt résztvevőjének saját:
 
@@ -585,7 +716,7 @@ participant's product
 
 A candidate ugyanazon követelmények, tesztek és disclosure-szabályok szerint értékelendő.
 
-## 24. Reference implementation
+## 26. Reference implementation
 
 A projekt jelenleg nem jelöl ki hivatalos reference implementationt.
 
@@ -596,7 +727,7 @@ good example
 != official reference implementation
 ```
 
-## 25. Candidate státusz
+## 27. Candidate státusz
 
 Lehetséges státuszok:
 
@@ -636,7 +767,7 @@ NOT SUITABLE for requirement X
 != universally bad technology
 ```
 
-## 26. Verzió és értékelési hatókör
+## 28. Verzió és értékelési hatókör
 
 Egy termék vagy technológia változik.
 
@@ -654,7 +785,7 @@ product name
 != stable evaluated object
 ```
 
-## 27. Publication és security boundary
+## 29. Publication és security boundary
 
 Candidate-analysis is tartalmazhat érzékeny információt:
 
@@ -674,7 +805,7 @@ public candidate method
 
 A public repositoryba csak olyan részlet kerülhet, amelynek publication- és security-kockázata elfogadható.
 
-## 28. Reklám és advocacy
+## 30. Reklám és advocacy
 
 A könyvtár nem termékkatalógus és nem marketingfelület.
 
@@ -689,7 +820,7 @@ Kerülendő:
 
 A candidate leírása lehet pozitív, de a pozitív állításnak ugyanúgy vizsgálhatónak kell lennie.
 
-## 29. Kapcsolat a `bizonyitekok/` könyvtárral
+## 31. Kapcsolat a `bizonyitekok/` könyvtárral
 
 A két könyvtár szerepe eltér:
 
@@ -705,7 +836,7 @@ Egy candidate record hivatkozhat több bizonyítékrekordra.
 
 Egy bizonyítékrekord több candidate vagy requirement értékelésében is releváns lehet.
 
-## 30. Kapcsolat a Manifestóval
+## 32. Kapcsolat a Manifestóval
 
 A Manifesto technológia-semleges szakmai minimum.
 
@@ -722,7 +853,7 @@ Implementation candidates
     = possible ways to achieve it
 ```
 
-## 31. Könyvtárszerkezet
+## 33. Könyvtárszerkezet
 
 A könyvtár csak tényleges tartalommal bővüljön.
 
@@ -748,21 +879,26 @@ no candidate
     -> no empty structure
 ```
 
-## 32. Minimális elfogadási kérdések
+## 34. Minimális elfogadási kérdések
 
 Egy candidate első komoly értékelése előtt legalább ezekre legyen válasz:
 
 1. Mely requirementet célozza?
 2. Milyen feltételezések mellett működik?
 3. Milyen dependencyt hoz létre?
-4. Mi történik hibánál?
-5. Hogyan áll helyre?
-6. Hogyan hagyható el vagy cserélhető?
-7. Hogyan tesztelhető?
-8. Milyen bizonyíték áll rendelkezésre?
-9. Milyen érettségi szinten van?
-10. Van-e lényeges résztvevői vagy kereskedelmi érdekeltség?
-11. Van-e security vagy publication kockázata az értékelésnek?
-12. Mely állítások maradnak még bizonyítatlanok?
+4. Milyen rendszerszintű interakciókat és common-mode failure lehetőségeket hoz létre vagy módosít?
+5. Mi történik hibánál, részleges kiesésnél vagy latent degradation mellett?
+6. Miből észlelhető, hogy a rendszer eltért a kívánt állapottól?
+7. Támaszkodik-e ismétlődő workaroundra, kézi kompenzációra vagy különleges emberi szakértelemre?
+8. Milyen új komplexitást vezet be, és mely requirement indokolja ezt?
+9. Hogyan áll helyre?
+10. Hogyan hagyható el vagy cserélhető?
+11. Hogyan tesztelhető?
+12. Milyen bizonyíték áll rendelkezésre?
+13. Milyen érettségi szinten van?
+14. Van-e lényeges résztvevői vagy kereskedelmi érdekeltség?
+15. Van-e security vagy publication kockázata az értékelésnek?
+16. Ha a candidate technikai `control` vagy `constraint` fogalmat használ, világos-e, hogy ez nem közhatalmi felhatalmazás?
+17. Mely állítások maradnak még bizonyítatlanok?
 
 Ha ezek közül több alapvető kérdésre nincs válasz, a candidate ettől még dokumentálható, de nem kezelhető megalapozott megoldási ajánlásként.
