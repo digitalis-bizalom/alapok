@@ -515,17 +515,17 @@ A jelen dokumentum csak a state-function oldali completeness gate-et definiálja
 
 Az élethelyzet- és szolgáltatási teljesség részletes módszertana külön dokumentumban kezelhető, ha ehhez megfelelő elsődleges forrás- és módszertani alap rendelkezésre áll.
 
-## 10. Kapcsolat a követelmény–evidencia–teszt módszerrel
+## 10. Kapcsolat a követelmény–bizonyíték–teszt módszerrel
 
 A completeness gate azt mondja meg, **mit nem szabad elfelejteni**.
 
-A `kovetelmeny-evidencia-teszt.md` azt mondja meg, **hogyan kell egy már azonosított követelményt ellenőrizhetővé tenni**.
+A `kovetelmeny-bizonyitek-teszt.md` azt mondja meg, **hogyan kell egy már azonosított követelményt ellenőrizhetővé tenni**.
 
 ```text
 state-function completeness
     -> coverage / blind-spot detection
 
-követelmény-evidencia-teszt
+követelmény-bizonyíték-teszt
     -> operationalization / verification
 ```
 
