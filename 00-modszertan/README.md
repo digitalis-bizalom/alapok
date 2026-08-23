@@ -21,7 +21,7 @@ Az `Alapok` alapvető mérési grammatikája:
 ```text
 állítás
 -> követelmény
--> evidencia
+-> bizonyíték
 -> mérce
 -> teszt
 -> failure condition
@@ -30,8 +30,8 @@ Az `Alapok` alapvető mérési grammatikája:
 A cél az, hogy egy fontos szakmai állításról elvileg meg lehessen mondani:
 
 1. pontosan mit követel;
-2. milyen megfigyelhető vagy dokumentálható evidencia releváns hozzá;
-3. milyen mérce alapján értékeljük ezt az evidenciát;
+2. milyen megfigyelhető vagy dokumentálható bizonyíték releváns hozzá;
+3. milyen mérce alapján értékeljük ezt az bizonyítékot;
 4. milyen teszt képes a követelményt érdemben vizsgálni;
 5. és milyen körülmény esetén tekintjük a követelményt nem teljesültnek.
 
@@ -56,7 +56,7 @@ HONNAN tudjuk, hogy teljesül?
 LEFEDTÜK-E azt, amit egyáltalán vizsgálnunk kell?
 ```
 
-Az első két kérdés részletes szabályait a `kovetelmeny-evidencia-teszt.md` tartalmazza.
+Az első két kérdés részletes szabályait a `kovetelmeny-bizonyitek-teszt.md` tartalmazza.
 
 A harmadik kérdéshez tartozik a `state-function-completeness.md`: annak ellenőrzése, hogy a digitális állam vizsgálata ne szűküljön pusztán általános cyber-, adat-, recovery-, beszállítói vagy interoperabilitási kérdésekre, hanem a konstitutív állami funkciók működőképességét is lefedje.
 
@@ -82,26 +82,26 @@ normatív követelmény
 != aktuális tényállítás
 ```
 
-A magyar jelenre, konkrét intézményre, beszállítóra, incidensre, költségre vagy rendszerállapotra vonatkozó állítások külön evidenciát igényelnek.
+A magyar jelenre, konkrét intézményre, beszállítóra, incidensre, költségre vagy rendszerállapotra vonatkozó állítások külön bizonyítékot igényelnek.
 
 Egy jelenlegi probléma fennállása indokolhat vizsgálatot vagy prioritást, de nem helyettesíti a követelmény általános megfogalmazását.
 
-### 3.3 Forrás és evidencia nem ugyanaz
+### 3.3 Forrás és bizonyíték nem ugyanaz
 
 ```text
 forrás
-!= evidencia
+!= bizonyíték
 ```
 
 A forrás megmutatja egy állítás vagy követelmény eredetét, szakmai alapját vagy provenance-ét.
 
-Az evidencia azt mutatja meg, hogy egy konkrét rendszer, képesség vagy eljárás esetében mi figyelhető meg, mérhető meg vagy ellenőrizhető.
+Az bizonyíték azt mutatja meg, hogy egy konkrét rendszer, képesség vagy eljárás esetében mi figyelhető meg, mérhető meg vagy ellenőrizhető.
 
 Egy tekintélyes forrás önmagában nem bizonyítja, hogy egy konkrét rendszer teljesíti a követelményt.
 
 ### 3.4 Az ellenőrizhetőség nem jelent szükségképpen nyilvánosságot
 
-A követelményeknek ellenőrizhetőknek kell lenniük, de ebből nem következik, hogy minden releváns evidencia korlátozás nélkül nyilvános lehet.
+A követelményeknek ellenőrizhetőknek kell lenniük, de ebből nem következik, hogy minden releváns bizonyíték korlátozás nélkül nyilvános lehet.
 
 Minősített, biztonságérzékeny vagy más jogszerűen korlátozott információnál az ellenőrizhetőséghez megfelelő jogosultságú, dokumentált ellenőrzési út szükséges.
 
@@ -124,7 +124,7 @@ Az `Alapok` egyedi követelményeinek alapértelmezett nyilvános szerkezete:
 ID
 ÁLLÍTÁS
 KÖVETELMÉNY
-EVIDENCIA
+BIZONYÍTÉK
 MÉRCE
 TESZT
 FAILURE CONDITION
@@ -134,9 +134,9 @@ STATUS
 
 A schema célja nem a bürokratikus teljesség, hanem az, hogy a szakmai állítások ellenőrizhető formában legyenek vitathatók és javíthatók.
 
-Egy korai draft tartalmazhat hiányzó mezőt, de a hiányt láthatóan kell jelölni. Hiányzó teszt vagy evidencia nem tehető úgy láthatatlanná, mintha a követelmény már bizonyított lenne.
+Egy korai draft tartalmazhat hiányzó mezőt, de a hiányt láthatóan kell jelölni. Hiányzó teszt vagy bizonyíték nem tehető úgy láthatatlanná, mintha a követelmény már bizonyított lenne.
 
-A mezők részletes jelentését a `kovetelmeny-evidencia-teszt.md` rögzíti.
+A mezők részletes jelentését a `kovetelmeny-bizonyitek-teszt.md` rögzíti.
 
 ## 5. Belső részletesség és nyilvános egyszerűség
 
@@ -154,7 +154,7 @@ Egyes témák elemzéséhez a public schemánál több mezőre lehet szükség, 
 - physical dependencies;
 - jurisdictional dependencies;
 - secrecy / disclosure boundary;
-- counterevidence / limits;
+- ellenbizonyíték / korlátok;
 - implementation options;
 - provenance.
 
