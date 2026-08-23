@@ -1,11 +1,11 @@
-# Követelmény, evidencia, mérce és teszt
+# Követelmény, bizonyíték, mérce és teszt
 
 Ez a dokumentum az `Alapok` alapvető ellenőrzési grammatikáját definiálja.
 
 ```text
 ÁLLÍTÁS
 -> KÖVETELMÉNY
--> EVIDENCIA
+-> BIZONYÍTÉK
 -> MÉRCE
 -> TESZT
 -> FAILURE CONDITION
@@ -32,7 +32,7 @@ Egy állítás akkor válik az `Alapok` részévé megfelelő erősséggel, ha l
 ```text
 Mit állítunk?
 Mit kell ezért a rendszernek vagy az intézménynek tudnia?
-Mi számít ennek evidenciájának?
+Mi számít ennek bizonyítékának?
 Milyen szabály vagy küszöb alapján értékeljük?
 Hogyan vizsgáljuk meg?
 Mi az a körülmény, amelynél kimondjuk, hogy nem teljesül?
@@ -46,7 +46,7 @@ Egy követelmény alapértelmezett nyilvános rekordja:
 ID
 ÁLLÍTÁS
 KÖVETELMÉNY
-EVIDENCIA
+BIZONYÍTÉK
 MÉRCE
 TESZT
 FAILURE CONDITION
@@ -65,7 +65,7 @@ Feladata:
 - pontos hivatkozás;
 - változások követése;
 - kapcsolatok rögzítése;
-- tesztek és evidenciák visszakötése.
+- tesztek és bizonyítékok visszakötése.
 
 Az ID lehetőleg ne hordozzon több jelentést, mint amennyi a stabil azonosításhoz szükséges.
 
@@ -84,7 +84,7 @@ Az `ÁLLÍTÁS` röviden és emberileg olvashatóan megfogalmazza, mit tartunk s
 
 Példa szerkezet:
 
-> Egy kritikus képesség helyreállíthatósága nem feltételezhető; azt megfelelő evidenciával bizonyítani kell.
+> Egy kritikus képesség helyreállíthatósága nem feltételezhető; azt megfelelő bizonyítékkal alá kell támasztani.
 
 Az állítás lehet magasabb szintű, mint a hozzá tartozó operatív követelmény.
 
@@ -108,7 +108,7 @@ Jó követelmény:
 - amennyire lehet, implementation-neutral;
 - nem pusztán cél- vagy értékmegjelölés;
 - elvileg cáfolható;
-- elvileg evidenciához és teszthez köthető;
+- elvileg bizonyítékhoz és teszthez köthető;
 - kritikus funkciónál szükség szerint kezeli a normál, degradált és helyreállítási működést is.
 
 Gyenge:
@@ -128,11 +128,19 @@ required capability
 
 Ha egy konkrét implementáció mégis része a követelménynek, annak oka legyen explicit.
 
-## 6. EVIDENCIA
+## 6. BIZONYÍTÉK
 
-Az `EVIDENCIA` azt írja le, milyen megfigyelhető, visszakereshető vagy ellenőrizhető anyag támaszthatja alá vagy cáfolhatja a követelmény teljesülését.
+A `BIZONYÍTÉK` azt írja le, milyen megfigyelhető, visszakereshető vagy ellenőrizhető anyag támaszthatja alá vagy cáfolhatja a követelmény teljesülését.
 
-Evidencia lehet például:
+A `bizonyíték` itt az angol *evidence* megfelelője. Nem matematikai értelemben vett bizonyítást és nem önmagában végleges következtetést jelent.
+
+```text
+bizonyíték
+!= bizonyítás
+!= következtetés
+```
+
+Bizonyíték lehet például:
 
 - konfiguráció vagy géppel olvasható állapot;
 - teszt- vagy gyakorlatjegyzőkönyv;
@@ -147,14 +155,14 @@ Evidencia lehet például:
 - fizikai készlet vagy kapacitás ellenőrzött nyilvántartása;
 - megfelelő jogosultsággal elvégzett zárt audit eredménye.
 
-Az evidencia önmagában még nem mondja meg, hogy a követelmény teljesül. Ehhez kell a mérce.
+Az bizonyíték önmagában még nem mondja meg, hogy a követelmény teljesül. Ehhez kell a mérce.
 
 ```text
-evidence
-!= conclusion
+bizonyíték
+!= következtetés
 ```
 
-### 6.1 Evidencia és forrás
+### 6.1 Bizonyíték és forrás
 
 A két mező szerepe különbözik:
 
@@ -162,7 +170,7 @@ A két mező szerepe különbözik:
 FORRÁS
     = honnan ered vagy mivel indokolható az állítás/követelmény
 
-EVIDENCIA
+BIZONYÍTÉK
     = mit vizsgálunk a konkrét teljesülés megállapításához
 ```
 
@@ -170,7 +178,7 @@ Egy szabvány, tanulmány vagy jogszabály lehet fontos forrás, de önmagában 
 
 ## 7. MÉRCE
 
-A `MÉRCE` azt a döntési szabályt írja le, amely alapján az evidenciát értékeljük.
+A `MÉRCE` azt a döntési szabályt írja le, amely alapján a bizonyítékot értékeljük.
 
 A mérce lehet:
 
@@ -195,7 +203,7 @@ minden kritikus függőséghez van kijelölt és kipróbált exit path
 a hivatalos aktus provenance-e a kijelölt trust chain alapján ellenőrizhető
 ```
 
-A mérce legyen elég pontos ahhoz, hogy ugyanazt az evidenciát két független reviewer lehetőleg ugyanúgy értékelje.
+A mérce legyen elég pontos ahhoz, hogy ugyanazt a bizonyítékot két független reviewer lehetőleg ugyanúgy értékelje.
 
 ```text
 mérce
@@ -206,7 +214,7 @@ Ha még nincs legitim küszöb, ezt nem szabad tetszőleges számmal pótolni. A
 
 ## 8. TESZT
 
-A `TESZT` az a dokumentált eljárás, amely az evidenciát előállítja vagy a követelmény teljesülését megvizsgálja.
+A `TESZT` az a dokumentált eljárás, amely a bizonyítékot előállítja vagy a követelmény teljesülését megvizsgálja.
 
 Egy jó tesztből legalább a következők rekonstruálhatók:
 
@@ -329,7 +337,7 @@ DEPRECATED
     vagy amelyet kifejezetten visszavontunk
 ```
 
-Ha egy konkrét rendszer teszteredményét rögzítjük, annak külön eredmény- vagy evidence-recordban kell megjelennie.
+Ha egy konkrét rendszer teszteredményét rögzítjük, annak külön eredmény- vagy bizonyítékrekordban kell megjelennie.
 
 ## 12. Hiányos rekordok
 
@@ -340,7 +348,7 @@ Ilyenkor:
 - a `STATUS` legyen ennek megfelelő;
 - a hiányzó mező legyen explicit `TBD`, `OPEN` vagy más egyértelmű jelölés;
 - ne állítsuk, hogy a követelmény bizonyított vagy lezárt;
-- a hiányzó evidencia, mérce vagy teszt legyen látható szakmai adósság.
+- a hiányzó bizonyíték, mérce vagy teszt legyen látható szakmai adósság.
 
 ```text
 unknown
@@ -362,7 +370,7 @@ A független ellenőrizhetőség jelenthet:
 - külső auditort;
 - reprodukálható tesztet;
 - nyilvánosan ellenőrizhető artifactot;
-- több, egymástól független evidenciacsatornát;
+- több, egymástól független bizonyítékcsatornát;
 - vagy megfelelő jogosultságú zárt review-t.
 
 A függetlenség formája a követelmény kockázatához és a legitim secrecy-korlátokhoz igazodjon.
@@ -421,7 +429,7 @@ KÖVETELMÉNY
 A funkcióhoz legyen deklarált helyreállítási cél, azonosított
 függőségi kör és rendszeresen végrehajtható helyreállítási teszt.
 
-EVIDENCIA
+BIZONYÍTÉK
 A legutóbbi helyreállítási gyakorlat reprodukálható eredményei,
 logjai és integritás-ellenőrzése.
 
